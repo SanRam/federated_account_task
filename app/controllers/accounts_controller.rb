@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
       session[:original_user_id] ||= current_user.id
       user = account.users.first
       session[:user_id] = user.id
-      redirect_to dashboard_path
+      redirect_to dashboard_path, notice: "You are now impersonating #{account.name} user #{user.username}."
     else
       redirect_to dashboard_path, alert: "You don't have permission to access this account"
     end
