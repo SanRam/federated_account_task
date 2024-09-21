@@ -5,8 +5,10 @@ class Account < ApplicationRecord
   has_many :donations
 
   def total_donations
-    self_and_descendant_ids = self.class.where(id: id).or(self.class.where(parent_id: id)).pluck(:id)
-    Donation.where(account_id: self_and_descendant_ids).sum(:amount)
+    #self_and_descendant_ids = self.class.where(id: id).or(self.class.where(parent_id: id)).pluck(:id)
+    self_ids = self.class.where(id: id).pluck(:id)
+    #puts "...........asdasd.....#{self_ids} ............asdsadasd."
+    Donation.where(account_id: self_ids).sum(:amount)
   end
 
   def self_and_descendants

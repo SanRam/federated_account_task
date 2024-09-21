@@ -22,13 +22,19 @@ detroit = Account.create!(name: "Detroit", parent: east)
 ny_city = Account.create!(name: "New York City", parent: east)
 florida = Account.create!(name: "Florida", parent: east)
 
+seattle = Account.create!(name: "Seattle", parent: west)
+
 # Create users
 User.create!(username: "root_user", password: "password", account: root)
 User.create!(username: "east_user", password: "password", account: east)
+User.create!(username: "west_user", password: "password", account: west)
 User.create!(username: "chicago_user", password: "password", account: chicago)
+User.create!(username: "chicago_user_2", password: "password", account: chicago)
+User.create!(username: "seattle_user", password: "password", account: seattle)
 
 # Create donations
 Donation.create!(amount: 1000, account: chicago)
 Donation.create!(amount: 1500, account: detroit)
 Donation.create!(amount: 2000, account: ny_city)
 Donation.create!(amount: 1800, account: florida)
+Donation.create!(amount: 2500, account: seattle)

@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      session[:account_history] = []
+      session[:account_history] = [] # Initialize impersonation history
       redirect_to dashboard_path, notice: 'Logged in successfully'
     else
       flash.now[:alert] = 'Invalid username or password'

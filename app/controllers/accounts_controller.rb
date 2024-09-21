@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
     if can_impersonate?(target_account)
       session[:account_history] ||= []
       session[:account_history].push(current_user.account_id)
-      user_to_impersonate = target_account.users.first
+      user_to_impersonate = target_account.users.first      
       session[:user_id] = user_to_impersonate.id
       redirect_to dashboard_path, notice: "You are now viewing as #{target_account.name}"
     else

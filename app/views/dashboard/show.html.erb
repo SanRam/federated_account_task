@@ -1,4 +1,4 @@
-<h1><%= @account.name %> Dashboard</h1>
+<h1>Dashboard</h1>
 <p>Total Donations: <%= number_to_currency(@account.total_donations) %></p>
 <br>
 <% unless impersonating? %>
@@ -30,11 +30,15 @@
   </table>
 <% end %>
 <br>
-<% if impersonating? %>
-  <%= link_to "Return to Parent Account", logout_path, method: :delete %>
-<% else %>
-  <%= link_to "Logout", logout_path, method: :delete %>
-<% end %>
+<div class="top-right">
+    <h1><%= @account.name %> </h1>
+    <% if impersonating? %>
+    <%= link_to "Return to Parent Account", logout_path, method: :delete %>
+    <% else %>
+    <%= link_to "Logout", logout_path, method: :delete %>
+    <% end %>
+</div>
+
 <br>
 <% if impersonating? %>
   <p><em>Note: You are currently impersonating this account. Donations are disabled.</em></p>
