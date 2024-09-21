@@ -6,10 +6,4 @@ class DashboardController < ApplicationController
     @child_accounts = @account.children.includes(:donations)
     @donation = Donation.new
   end
-
-  private
-
-  def require_login
-    redirect_to login_path unless current_user
-  end
 end

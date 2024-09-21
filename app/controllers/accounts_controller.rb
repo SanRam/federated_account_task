@@ -12,10 +12,4 @@ class AccountsController < ApplicationController
       redirect_to dashboard_path, alert: "You don't have permission to access this account"
     end
   end
-
-  private
-
-  def require_login
-    redirect_to login_path unless current_user
-  end
 end
