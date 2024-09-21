@@ -13,14 +13,14 @@
 ActiveRecord::Schema[7.1].define(version: 2024_09_21_130834) do
   create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.integer "parent_id", null: false
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_accounts_on_parent_id"
   end
 
   create_table "donations", force: :cascade do |t|
-    t.decimal "amount"
+    t.decimal "amount", precision: 10, scale: 2
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,9 +34,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_21_130834) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_users_on_account_id"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "accounts", "parents"
+  add_foreign_key "accounts", "accounts", column: "parent_id"
   add_foreign_key "donations", "accounts"
   add_foreign_key "users", "accounts"
 end
