@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
   def require_login
     redirect_to login_path, alert: "You must be logged in to access this page." unless current_user
   end
+
+  def impersonating?
+    session[:account_history].present?
+  end
 end

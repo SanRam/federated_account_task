@@ -1,5 +1,6 @@
 class DonationsController < ApplicationController
   before_action :require_login
+  before_action :check_impersonation
 
   def create
     @donation = current_user.account.donations.new(donation_params)
@@ -14,5 +15,11 @@ class DonationsController < ApplicationController
 
   def donation_params
     params.require(:donation).permit(:amount)
+  end
+
+  def check_impersonation
+    if impersonating?
+      redirect_to dashboard_path, alert: 'Impersonated users cannot make donations.'
+    end
   end
 end

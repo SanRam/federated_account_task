@@ -1,13 +1,15 @@
 <h1><%= @account.name %> Dashboard</h1>
 <p>Total Donations: <%= number_to_currency(@account.total_donations) %></p>
-
-<h2>Make a Donation</h2>
-<%= form_with(model: @donation, local: true) do |form| %>
-  <%= form.label :amount %>
-  <%= form.number_field :amount, step: 0.01 %>
-  <%= form.submit "Donate" %>
+<br>
+<% unless impersonating? %>
+  <h2>Make a Donation</h2>
+  <%= form_with(model: @donation, local: true) do |form| %>
+    <%= form.label :amount %>
+    <%= form.number_field :amount, step: 0.01 %>
+    <%= form.submit "Donate" %>
+  <% end %>
 <% end %>
-
+<br>
 <% if @child_accounts.any? %>
   <h2>Child Accounts</h2>
   <table>
@@ -20,10 +22,20 @@
       <tr>
         <td><%= child.name %></td>
         <td><%= number_to_currency(child.total_donations) %></td>
-        <td><%= link_to "Login as", impersonate_account_path(child), method: :post %></td>
+        <td>
+          <%= link_to "Login as", impersonate_account_path(child), method: :post %>
+        </td>
       </tr>
     <% end %>
   </table>
 <% end %>
-
-<%= link_to "Logout", logout_path, method: :delete %>
+<br>
+<% if impersonating? %>
+  <%= link_to "Return to Parent Account", logout_path, method: :delete %>
+<% else %>
+  <%= link_to "Logout", logout_path, method: :delete %>
+<% end %>
+<br>
+<% if impersonating? %>
+  <p><em>Note: You are currently impersonating this account. Donations are disabled.</em></p>
+<% end %>
